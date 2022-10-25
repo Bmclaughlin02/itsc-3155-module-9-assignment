@@ -1,4 +1,6 @@
+from turtle import title
 from urllib import request
+from webbrowser import get
 from flask import Flask, redirect, render_template, request
 
 from src.repositories.movie_repository import get_movie_repository
@@ -40,4 +42,8 @@ def create_movie():
 @app.get('/movies/search')
 def search_movies():
     # TODO: Feature 3
-    return render_template('search_movies.html', search_active=True)
+    search = request.form.get('search-bar')
+    searches = movie_repository.get_movie_by_title(search)
+    
+
+    return render_template('/search_movies.html', search_active=searches)
